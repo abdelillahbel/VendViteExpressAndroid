@@ -34,9 +34,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
 
-
                 else -> throw AssertionError()
-
 
             }
         }
