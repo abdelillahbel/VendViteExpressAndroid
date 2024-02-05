@@ -27,10 +27,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.ensb.vendviteexpress" />
+                  <option name="mobileSdkAppId" value="1:1020063288797:android:423550642cfa082cdf7a34" />
+                  <option name="projectId" value="vendviteexpress" />
+                  <option name="projectNumber" value="1020063288797" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />
