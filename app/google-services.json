@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1020063288797",
+    "project_id": "vendviteexpress",
+    "storage_bucket": "vendviteexpress.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1020063288797:android:423550642cfa082cdf7a34",
+        "android_client_info": {
+          "package_name": "com.ensb.vendviteexpress"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCOtaT8kyC3T40bIfW4KZJADbK_v5l9LSI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
