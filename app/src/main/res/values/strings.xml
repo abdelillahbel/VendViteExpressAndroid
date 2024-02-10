@@ -128,6 +128,11 @@
     <string name="support">Support</string>
     <string name="logout">Log Out</string>
     <string name="name">Name</string>
+    <string name="type">Seller or Distributor</string>
+    <string-array name="user_type" translatable="false">
+        <item>seller</item>
+        <item>distributor</item>
+    </string-array>
     <string name="mobile_number">Mobile Number</string>
     <string name="verified">Verified</string>
     <string name="account">Account</string>
