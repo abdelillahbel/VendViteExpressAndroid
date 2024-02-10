@@ -3,9 +3,8 @@ package com.ensb.vendviteexpress.utils
 
 const val TAG = "TAG"
 
- // firebase database constants
-
-
+// firebase constants
+const val USERS = "users"
 
 
 
