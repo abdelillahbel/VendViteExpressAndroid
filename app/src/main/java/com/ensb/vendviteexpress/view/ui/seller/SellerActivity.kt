@@ -1,4 +1,4 @@
-package com.ensb.vendviteexpress.view
+package com.ensb.vendviteexpress.view.ui.seller
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,12 +7,11 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.ensb.vendviteexpress.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainActivity : AppCompatActivity() {
+class SellerActivity : AppCompatActivity() {
 
     private lateinit var bottomNav: BottomNavigationView
     private lateinit var navController: NavController
@@ -20,7 +19,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(R.layout.activity_seller)
 
 
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigationView)
@@ -50,5 +49,6 @@ class MainActivity : AppCompatActivity() {
         transaction.replace(R.id.nav_host_fragment, fragment)
         transaction.commit()
     }
+
 
 }

@@ -6,7 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import com.ensb.vendviteexpress.R
-import com.ensb.vendviteexpress.view.ui.home.HomeFragment
+import com.ensb.vendviteexpress.view.ui.seller.home.HomeFragment
 
 class AuthActivity : AppCompatActivity() {
 
