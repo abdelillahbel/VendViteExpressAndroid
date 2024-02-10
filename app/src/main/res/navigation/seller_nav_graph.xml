@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.ensb.vendviteexpress.view.ui.home.HomeFragment"
+        android:name="com.ensb.vendviteexpress.view.ui.seller.home.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home">
 
@@ -21,7 +21,7 @@
 
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="com.ensb.vendviteexpress.view.ui.about.AboutFragment"
+        android:name="com.ensb.vendviteexpress.view.ui.seller.about.AboutFragment"
         android:label="@string/about"
         tools:layout="@layout/fragment_about" >
         <action
@@ -33,7 +33,7 @@
     </fragment>
     <fragment
         android:id="@+id/accountFragment"
-        android:name="com.ensb.vendviteexpress.view.ui.account.AccountFragment"
+        android:name="com.ensb.vendviteexpress.view.ui.seller.account.AccountFragment"
         android:label="@string/account"
         tools:layout="@layout/fragment_account" >
         <action

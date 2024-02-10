@@ -1,4 +1,4 @@
-package com.ensb.vendviteexpress.view.ui.home
+package com.ensb.vendviteexpress.view.ui.seller.home
 
 import androidx.lifecycle.ViewModel
 

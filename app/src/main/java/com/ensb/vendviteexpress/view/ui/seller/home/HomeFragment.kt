@@ -1,4 +1,4 @@
-package com.ensb.vendviteexpress.view.ui.home
+package com.ensb.vendviteexpress.view.ui.seller.home
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

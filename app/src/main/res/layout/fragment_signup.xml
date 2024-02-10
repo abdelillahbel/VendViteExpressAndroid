@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     tools:context=".view.ui.auth.SignupFragment">
 
 
@@ -105,6 +106,27 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/type_name_input_layout"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="@dimen/margin_large"
+                    android:hint="@string/type"
+                    app:boxCornerRadiusBottomEnd="@dimen/dp_15"
+                    app:boxCornerRadiusBottomStart="@dimen/dp_15"
+                    app:boxCornerRadiusTopEnd="@dimen/dp_15"
+                    app:boxCornerRadiusTopStart="@dimen/dp_15"
+                    app:hintTextColor="@color/red_a30"
+                    app:startIconDrawable="@drawable/ic_profile">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/type_name_input_editText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/register_password_input_layout"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
