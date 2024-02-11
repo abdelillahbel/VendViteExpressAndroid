@@ -1,16 +1,26 @@
 ***
+
 # VendVite Express Mobile App
 
-VendViteApp is an Android application designed to revolutionize the distribution process between sales points. Built with Kotlin and leveraging the power of Firebase, Google Maps, and modern Android development best practices, this app makes the distribution experience faster, smoother, and more efficient.
+VendViteApp is an Android application designed to revolutionize the distribution process between
+sales points and distributors. Built with Kotlin and leveraging the power of Firebase, Google Maps, and modern
+Android development best practices, this app makes the distribution experience faster, smoother, and
+more efficient.
 
 ## Key Features
-### [The app still in development..]
 
-* **Streamlined Sales Point Management:** Easily manage sales points, including adding, updating, and viewing locations for improved logistics.
-* **Smart Route Optimization:** Integrated Google Maps API ensures the most efficient delivery routes, saving time and fuel costs.
-* **Real-time Order Tracking:** Stay updated on order statuses with comprehensive in-app order tracking features.
-* **Inventory Management:** Keep tabs on stock levels and manage inventory to prevent shortages and unnecessary surpluses.
-* **Seamless Communication:** Facilitate direct communication between sales points and distributors for greater transparency.
+### _~~The app still under development..~~_
+
+* **Streamlined Sales Point Management:** Easily manage sales points, including adding, updating,
+  and viewing locations for improved logistics.
+* **Smart Route Optimization:** Integrated Google Maps API ensures the most efficient delivery
+  routes, saving time and fuel costs.
+* **Real-time Order Tracking:** Stay updated on order statuses with comprehensive in-app order
+  tracking features.
+* **Inventory Management:** Keep tabs on stock levels and manage inventory to prevent shortages and
+  unnecessary surpluses.
+* **Seamless Communication:** Facilitate direct communication between sales points and distributors
+  for greater transparency.
 
 ## Technologies
 
@@ -40,22 +50,24 @@ VendViteApp is an Android application designed to revolutionize the distribution
 
 ## Project Structure
 
-* `app/src/main/java/com/yourpackage/vendviteapp`
+* `app/src/main/java/com/ensb/vendviteexpress`
     * `data`: Data models, repositories, and data sources.
-    * `ui`: Views (Activities/Fragments), ViewModels, Adapters.
+    * `view`: Views (Activities/Fragments), ViewModels, Adapters.
     * `utils`: Helper classes and extension functions.
 * `app/build.gradle`: Project dependencies and configurations.
 
 <!-- ## License
 
 This project is licensed under the MIT License - see the LICENSE: LICENSE file for details. -->
-## License 
+
+## License
 
 This project is owned and developed by **ABDEL ILLA BELAOUDJ** for **GDSC ENSB Solution Challenge**.
 
-## Contributing
+<!-- ## Contributing
 
 We welcome contributions to VendViteApp! Please check our contribution guidelines in CONTRIBUTING.md: CONTRIBUTING.md before submitting a pull request.
+-->
 
 ## Questions or Feedback?
 
