@@ -15,9 +15,6 @@ class AuthActivity : AppCompatActivity() {
         setContentView(R.layout.activity_auth)
 
 
-
-
-
     }
 
     private fun loadFragment(fragment: Fragment) {

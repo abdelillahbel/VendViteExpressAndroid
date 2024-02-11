@@ -7,8 +7,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -16,11 +14,12 @@ import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ensb.vendviteexpress.R
+import com.ensb.vendviteexpress.databinding.FragmentLoginBinding
 import com.ensb.vendviteexpress.utils.Response
 import com.ensb.vendviteexpress.utils.USERS
+import com.ensb.vendviteexpress.utils.Utils.isEmailValid
 import com.ensb.vendviteexpress.view.ui.distributor.DistributorActivity
 import com.ensb.vendviteexpress.view.ui.seller.SellerActivity
-import com.google.android.material.textfield.TextInputEditText
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
@@ -31,6 +30,7 @@ import kotlinx.coroutines.launch
 class LoginFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
     private val auth: FirebaseAuth = Firebase.auth
+    private lateinit var binding: FragmentLoginBinding
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,22 +40,33 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
-        val view = inflater.inflate(R.layout.fragment_login, container, false)
+    ): View {
 
-        val signUp = view.findViewById<TextView>(R.id.txtSignUp)
-        val logInBtn = view.findViewById<Button>(R.id.btn_login)
-        val emailEditText = view.findViewById<TextInputEditText>(R.id.login_email_input_editText)
+        binding = FragmentLoginBinding.inflate(inflater, container, false)
+        authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
+        binding.authViewModel = authViewModel
+        binding.lifecycleOwner = this
+
+        val signUp = binding.txtSignUp
+        val errorTv = binding.errorTv
+        val logInBtn = binding.btnLogin
+        val emailEditText = binding.loginEmailInputEditText
         val passwordEditText =
-            view.findViewById<TextInputEditText>(R.id.login_password_input_editText)
+            binding.loginPasswordInputEditText
 
         logInBtn.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
-            authViewModel.loginUser(email, password)
-        }
 
+            if (email.isEmailValid()) {
+                authViewModel.loginUser(email, password)
+            } else {
+                errorTv.visibility = View.VISIBLE
+                errorTv.text = getString(R.string.invalid_email_address)
+            }
+
+
+        }
 
         authViewModel.authResult.observe(viewLifecycleOwner) { result ->
             when (result) {
@@ -91,7 +102,7 @@ class LoginFragment : Fragment() {
         }
 
 
-        return view
+        return binding.root
     }
 
     private fun fetchUserDataAndNavigate() {

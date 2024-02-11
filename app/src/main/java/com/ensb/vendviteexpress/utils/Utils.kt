@@ -3,6 +3,8 @@ package com.ensb.vendviteexpress.utils
 import android.app.Activity
 import android.content.Context
 import android.content.Intent
+import android.text.TextUtils
+import android.util.Patterns
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.ensb.vendviteexpress.view.ui.seller.SellerActivity
@@ -44,6 +46,9 @@ object Utils {
             startActivity(it)
         }
 
+    fun String.isEmailValid(): Boolean {
+        return !TextUtils.isEmpty(this) && Patterns.EMAIL_ADDRESS.matcher(this).matches()
+    }
 
 }
 
