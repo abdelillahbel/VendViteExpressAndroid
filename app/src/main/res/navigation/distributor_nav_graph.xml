@@ -9,7 +9,11 @@
         android:id="@+id/homeDistributorFragment"
         android:name="com.ensb.vendviteexpress.view.ui.distributor.home.HomeDistributorFragment"
         android:label="fragment_home_distributor"
-        tools:layout="@layout/fragment_home_distributor" />
+        tools:layout="@layout/fragment_home_distributor" >
+        <action
+            android:id="@+id/action_homeDistributorFragment_to_sellerInfoDialogFragment"
+            app:destination="@id/sellerInfoDialogFragment" />
+    </fragment>
     <fragment
         android:id="@+id/accountDistributorFragment"
         android:name="com.ensb.vendviteexpress.view.ui.distributor.account.AccountDistributorFragment"
@@ -20,4 +24,9 @@
         android:name="com.ensb.vendviteexpress.view.ui.distributor.about.AboutDistributorFragment"
         android:label="fragment_about_distributor"
         tools:layout="@layout/fragment_about_distributor" />
+    <dialog
+        android:id="@+id/sellerInfoDialogFragment"
+        android:name="com.ensb.vendviteexpress.view.ui.distributor.home.SellerInfoDialogFragment"
+        android:label="fragment_seller_info_dialog_list_dialog"
+        tools:layout="@layout/fragment_seller_info_dialog_list_dialog" />
 </navigation>

@@ -10,36 +10,40 @@ import android.widget.AutoCompleteTextView
 import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.ensb.vendviteexpress.R
+import com.ensb.vendviteexpress.databinding.FragmentLoginBinding
+import com.ensb.vendviteexpress.databinding.FragmentSignupBinding
 import com.ensb.vendviteexpress.utils.Response
+import com.ensb.vendviteexpress.utils.Utils.hideKeyboard
+import com.ensb.vendviteexpress.utils.Utils.isEmailValid
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
+import com.google.firebase.firestore.GeoPoint
 
 
 class SignupFragment : Fragment() {
     private lateinit var authViewModel: AuthViewModel
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
+    private lateinit var binding: FragmentSignupBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
+        binding = FragmentSignupBinding.inflate(inflater, container, false)
         authViewModel = ViewModelProvider(this)[AuthViewModel::class.java]
 
-        val view = inflater.inflate(R.layout.fragment_signup, container, false)
 
-        val loginBtn = view.findViewById<TextView>(R.id.txtLogin)
-        val signUpBtn = view.findViewById<Button>(R.id.btn_register)
-        val nameEditText = view.findViewById<TextInputEditText>(R.id.register_name_input_editText)
-        val typeEditText = view.findViewById<AutoCompleteTextView>(R.id.type_name_input_editText)
-        val emailEditText = view.findViewById<TextInputEditText>(R.id.registerEmailInputEditText)
-        val passwordEditText =
-            view.findViewById<TextInputEditText>(R.id.register_password_input_editText)
+        val loginBtn = binding.txtLogin
+        val signUpBtn = binding.btnRegister
+        val nameEditText = binding.registerNameInputEditText
+        val typeEditText = binding.typeNameInputEditText
+        val emailEditText = binding.registerEmailInputEditText
+        val passwordEditText = binding.registerPasswordInputEditText
 
         // get user type from string array
         val types = resources.getStringArray(R.array.user_type)
@@ -48,20 +52,37 @@ class SignupFragment : Fragment() {
 
         typeEditText.setAdapter(userTypeArrayAdapter)
 
+        setupProgressBar()
+
         // signup
         signUpBtn.setOnClickListener {
             val name = nameEditText.text.toString().trim()
             val email = emailEditText.text.toString().trim()
+            val phoneNumber: String? = null
             val type = typeEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
-            authViewModel.registerUser(name, email, type, password)
+            val location: GeoPoint? = null
+            if (name.isNotEmpty() && email.isNotEmpty() && type.isNotEmpty() && password.isNotEmpty() && email.isEmailValid()) {
+                hideKeyboard()
+                authViewModel.registerUser(name, email, phoneNumber, type, location, password)
+            } else {
+                Snackbar.make(
+                    requireView(),
+                    "All information needed!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
+            }
+
 
         }
 
 
-        authViewModel.authResult.observe(viewLifecycleOwner) { result ->
+        authViewModel.authState.observe(viewLifecycleOwner) { result ->
             when (result) {
+                is Response.Loading -> showProgressBar()
+
                 is Response.Success -> {
+                    hideProgressBar()
                     Toast.makeText(
                         context,
                         "You have successfully registered",
@@ -76,9 +97,12 @@ class SignupFragment : Fragment() {
                 }
 
                 is Response.Failure -> {
+                    hideProgressBar()
                     // Handle signup errors (display an error message based on result.exception)
                     Toast.makeText(context, result.e.message, Toast.LENGTH_SHORT).show()
                 }
+
+                else -> {}
             }
         }
 
@@ -94,7 +118,41 @@ class SignupFragment : Fragment() {
         }
 
 
-        return view
+        return binding.root
+    }
+
+    private fun setupProgressBar() {
+        binding.indicator.apply {
+//            setTextSize(resources.getDimension(com.intuit.sdp.R.dimen._30sdp))
+            setTextColor(ResourcesCompat.getColorStateList(resources, R.color.white, null)!!)
+            setTypeface(R.font.poppins_regular)
+            setProgressIndicatorColor("#FFFFFF")
+            setText(R.string.loading)
+            setImageResource(R.drawable.logo)
+            setTrackColor("#FFA30000")
+        }
+
+    }
+
+    private fun hideProgressBar() {
+        binding.indicator.apply {
+            visibility = View.GONE
+            stopAnimation()
+        }
+    }
+
+    private fun showProgressBar() {
+        binding.indicator.apply {
+            visibility = View.VISIBLE
+            startAnimation()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.indicator.apply {
+            stopAnimation()
+        }
     }
 
 }

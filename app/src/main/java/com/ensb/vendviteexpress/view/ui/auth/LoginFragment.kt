@@ -1,13 +1,19 @@
 package com.ensb.vendviteexpress.view.ui.auth
 
 import android.content.Context
+import android.content.Context.INPUT_METHOD_SERVICE
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.res.ResourcesCompat
+import androidx.databinding.adapters.TextViewBindingAdapter.setText
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
@@ -16,14 +22,19 @@ import androidx.navigation.fragment.findNavController
 import com.ensb.vendviteexpress.R
 import com.ensb.vendviteexpress.databinding.FragmentLoginBinding
 import com.ensb.vendviteexpress.utils.Response
+import com.ensb.vendviteexpress.utils.TAG
 import com.ensb.vendviteexpress.utils.USERS
+import com.ensb.vendviteexpress.utils.Utils
+import com.ensb.vendviteexpress.utils.Utils.hideKeyboard
 import com.ensb.vendviteexpress.utils.Utils.isEmailValid
 import com.ensb.vendviteexpress.view.ui.distributor.DistributorActivity
 import com.ensb.vendviteexpress.view.ui.seller.SellerActivity
+import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
+import io.grpc.okhttp.internal.Util
 import kotlinx.coroutines.launch
 
 
@@ -32,10 +43,6 @@ class LoginFragment : Fragment() {
     private val auth: FirebaseAuth = Firebase.auth
     private lateinit var binding: FragmentLoginBinding
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,30 +61,38 @@ class LoginFragment : Fragment() {
         val passwordEditText =
             binding.loginPasswordInputEditText
 
+        setupProgressBar()
+
         logInBtn.setOnClickListener {
             val email = emailEditText.text.toString().trim()
             val password = passwordEditText.text.toString().trim()
 
-            if (email.isEmailValid()) {
-                authViewModel.loginUser(email, password)
-            } else {
+            if (!email.isEmailValid()) {
                 errorTv.visibility = View.VISIBLE
                 errorTv.text = getString(R.string.invalid_email_address)
+            } else if (password.length <= 5 || password.isEmpty()) {
+                errorTv.visibility = View.VISIBLE
+                errorTv.text = getString(R.string.invalid_password)
+            } else {
+                hideKeyboard()
+                authViewModel.loginUser(email, password)
             }
 
 
         }
 
-        authViewModel.authResult.observe(viewLifecycleOwner) { result ->
+        authViewModel.authState.observe(viewLifecycleOwner) { result ->
             when (result) {
+                is Response.Loading -> showProgressBar()
                 is Response.Success -> {
+                    hideProgressBar()
                     lifecycleScope.launch { // Access viewModel properties or functions here
                         val userName = authViewModel.getUserName()
                         if (userName != null) {
-                            Toast.makeText(context, "Welcome back $userName", Toast.LENGTH_LONG)
+                            Toast.makeText(context, "Hello $userName", Toast.LENGTH_LONG)
                                 .show()
                         } else {
-                            Toast.makeText(context, "Welcome back", Toast.LENGTH_SHORT)
+                            Toast.makeText(context, "Hello", Toast.LENGTH_SHORT)
                                 .show()
                         }
                     }
@@ -85,10 +100,15 @@ class LoginFragment : Fragment() {
                 }
 
                 is Response.Failure -> {
+
                     // Display error message based on result.e
                     Toast.makeText(context, result.e.message, Toast.LENGTH_SHORT).show()
+                    Log.e(TAG, result.e.message.toString())
+                    hideProgressBar()
 
                 }
+
+                else -> {}
             }
         }
 
@@ -103,6 +123,33 @@ class LoginFragment : Fragment() {
 
 
         return binding.root
+    }
+
+    private fun setupProgressBar() {
+        binding.indicator.apply {
+//            setTextSize(resources.getDimension(com.intuit.sdp.R.dimen._30sdp))
+            setTextColor(ResourcesCompat.getColorStateList(resources, R.color.white, null)!!)
+            setTypeface(R.font.poppins_regular)
+            setProgressIndicatorColor("#FFFFFF")
+            setText(R.string.loading)
+            setImageResource(R.drawable.logo)
+            setTrackColor("#FFA30000")
+        }
+
+    }
+
+    private fun hideProgressBar() {
+        binding.indicator.apply {
+            visibility = View.GONE
+            stopAnimation()
+        }
+    }
+
+    private fun showProgressBar() {
+        binding.indicator.apply {
+            visibility = View.VISIBLE
+            startAnimation()
+        }
     }
 
     private fun fetchUserDataAndNavigate() {
@@ -149,6 +196,13 @@ class LoginFragment : Fragment() {
         with(sharedPreferences.edit()) {
             putString("user_type", userType)
             apply() // Or commit() for synchronous saving
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        binding.indicator.apply {
+            stopAnimation()
         }
     }
 

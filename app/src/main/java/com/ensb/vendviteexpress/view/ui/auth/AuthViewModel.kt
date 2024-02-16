@@ -1,8 +1,5 @@
 package com.ensb.vendviteexpress.view.ui.auth
 
-import android.content.Context
-import android.content.SharedPreferences
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,6 +10,7 @@ import com.ensb.vendviteexpress.utils.USERS
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.firestore
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -23,30 +21,39 @@ class AuthViewModel : ViewModel() {
     private val auth: FirebaseAuth = Firebase.auth
     private val db = Firebase.firestore
 
-    private val _authResult = MutableLiveData<Response<Boolean>>() // Updated type
-    val authResult: LiveData<Response<Boolean>> = _authResult
+    private val _authState = MutableLiveData<Response<Boolean>>() // Updated type
+    val authState: LiveData<Response<Boolean>> = _authState
 
 
-    fun registerUser(name: String, email: String, type: String, password: String) {
+    fun registerUser(
+        name: String,
+        email: String,
+        phoneNumber: String?,
+        type: String,
+        location: GeoPoint?,
+        password: String
+    ) {
+        _authState.value = Response.Loading
         viewModelScope.launch {
             try {
                 val result = auth.createUserWithEmailAndPassword(email, password).await()
-                val user = User(name, email, type, result.user?.uid)
+                val user = User(name, email,phoneNumber, type, location, result.user?.uid)
                 storeUserData(user)
-                _authResult.value = Response.Success(true) // Signup successful
+                _authState.value = Response.Success(true) // Signup successful
             } catch (e: Exception) {
-                _authResult.value = Response.Failure(e)
+                _authState.value = Response.Failure(e)
             }
         }
     }
 
     fun loginUser(email: String, password: String) {
+        _authState.value = Response.Loading
         viewModelScope.launch {
             try {
                 auth.signInWithEmailAndPassword(email, password).await()
-                _authResult.value = Response.Success(true) // Login successful
+                _authState.value = Response.Success(true) // Login successful
             } catch (e: Exception) {
-                _authResult.value = Response.Failure(e)
+                _authState.value = Response.Failure(e)
             }
         }
     }

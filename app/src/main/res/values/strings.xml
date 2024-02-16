@@ -13,9 +13,7 @@
     <string name="placed_order_title">Success!</string>
     <string name="placed_order_message">You have successfully placed order!</string>
     <string name="creating_dialog_message">Creating order…</string>
-    <string name="facebook_app_id">593283722014887</string>
     <string name="fb_login_protocol_scheme">fb593283722014887</string>
-    <string name="facebook_client_token">dd589d0b733000634328ead72eeec53b</string>
     <string name="special_instructions">Special Instructions</string>
     <string name="delivery_address">Delivery address</string>
     <string name="to_check_out">Go to checkout</string>
@@ -43,7 +41,6 @@
     <string name="confirm_address">Confirm address</string>
     <string name="continue_with_google">Continue with Google</string>
     <string name="place_order">Place Order • ₱%s</string>
-    <string name="continue_with_facebook">Continue with Facebook</string>
     <string name="continue_with_email">Continue with Email Address</string>
     <string name="add_a_new_address">Add a new address</string>
     <string name="current_location">Current Location</string>
@@ -129,7 +126,7 @@
     <string name="logout">Log Out</string>
     <string name="name">Name</string>
     <string name="type">Seller or Distributor</string>
-    <string-array name="user_type" translatable="false">
+    <string-array name="user_type" >
         <item>seller</item>
         <item>distributor</item>
     </string-array>
@@ -221,5 +218,6 @@
     <string name="title_activity_splash">SplashActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="unverified">unverified</string>
 
 </resources>

@@ -2,12 +2,21 @@
 
 # VendVite Express Mobile App
 
-VendViteApp is an Android application designed to revolutionize the distribution process between
-sales points and distributors. Built with Kotlin and leveraging the power of Firebase, Google Maps, and modern
-Android development best practices, this app makes the distribution experience faster, smoother, and
-more efficient.
+**VendVite Express App is an Android application designed to revolutionize the distribution process between sales points and distributors. 
+Built with Kotlin and leveraging the power of Google Technologies Include Firebase, Google Maps API, and modern Android development best practices, this app makes the distribution experience faster, smoother, and more efficient.**
+
+### Test user credentials
+
+#### Distributor
+* Email : `io@email.com`
+* Password : `123456`
+#### Seller
+* Email : `ioi@email.com`
+* Password : `123456`
 
 ## Key Features
+
+###### **Tested on API VERSION 33**
 
 ### _~~The app still under development..~~_
 
@@ -15,7 +24,7 @@ more efficient.
   and viewing locations for improved logistics.
 * **Smart Route Optimization:** Integrated Google Maps API ensures the most efficient delivery
   routes, saving time and fuel costs.
-* **Real-time Order Tracking:** Stay updated on order statuses with comprehensive in-app order
+* **Real-time Orders Tracking:** Stay updated on order statuses with comprehensive in-app order
   tracking features.
 * **Inventory Management:** Keep tabs on stock levels and manage inventory to prevent shortages and
   unnecessary surpluses.
@@ -39,38 +48,24 @@ more efficient.
 
 * Android Studio (latest recommended)
 * A Firebase Project with Firestore and Authentication enabled
-* A Google Maps API key
+* A Google Maps API key (Enable the API from google cloud console)
 
 **Installation**
 
 1. Clone this repository: `git clone https://github.com/gdsc-ensb/VendViteExpressAndroid.git`
 2. Open the project in Android Studio.
-3. Obtain your Google Maps API key and add it to your project's configuration.
+3. Obtain your Google Maps API key and add it to your project's configuration inside `secrets.properties` file, don't forget to setup `local.defaults.properties` file following instructions from official doc's.
 4. Set up your Firebase project and link it to the Android app.
-
 ## Project Structure
 
 * `app/src/main/java/com/ensb/vendviteexpress`
     * `data`: Data models, repositories, and data sources.
-    * `view`: Views (Activities/Fragments), ViewModels, Adapters.
+    * `view`: `[SELLER] [DISTRIBUTOR]` Views (Activities/Fragments), ViewModels, Adapters.
     * `utils`: Helper classes and extension functions.
 * `app/build.gradle`: Project dependencies and configurations.
 
-<!-- ## License
+## This project is a part of Google Developer Student Clubs Solution Challenge !
 
-This project is licensed under the MIT License - see the LICENSE: LICENSE file for details. -->
-
-## License
-
-This project is owned and developed by **ABDEL ILLA BELAOUDJ** for **GDSC ENSB Solution Challenge**.
-
-<!-- ## Contributing
-
-We welcome contributions to VendViteApp! Please check our contribution guidelines in CONTRIBUTING.md: CONTRIBUTING.md before submitting a pull request.
--->
-
-## Questions or Feedback?
-
-Feel free to open an issue on the repository or reach out if you have any questions or feedback!
-
-***
+### About US :
+* ##### [GDSC ENSB](https://github.com/gdsc-ensb) - National school of biotechnology - Algeria
+* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager & VendVite App owner & developer.

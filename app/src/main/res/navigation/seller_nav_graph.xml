@@ -17,6 +17,12 @@
         <action
             android:id="@+id/action_homeFragment_to_accountFragment"
             app:destination="@id/accountFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_itemListDialogFragment"
+            app:destination="@id/itemListDialogFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_postNeedsDialogFragment"
+            app:destination="@id/postNeedsDialogFragment" />
     </fragment>
 
     <fragment
@@ -43,6 +49,16 @@
             android:id="@+id/action_accountFragment_to_aboutFragment"
             app:destination="@id/aboutFragment" />
     </fragment>
+    <dialog
+        android:id="@+id/itemListDialogFragment"
+        android:name="com.ensb.vendviteexpress.view.ui.seller.home.DistributorInfoDialogFragment"
+        android:label="fragment_item_list_dialog_list_dialog"
+        tools:layout="@layout/fragment_distributor_info_dialog_list_dialog" />
+    <dialog
+        android:id="@+id/postNeedsDialogFragment"
+        android:name="com.ensb.vendviteexpress.view.ui.seller.home.PostNeedsDialogFragment"
+        android:label="fragment_post_needs_dialog"
+        tools:layout="@layout/fragment_post_needs_dialog" />
 
 
 </navigation>
