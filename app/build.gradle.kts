@@ -2,6 +2,21 @@ plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("com.google.gms.google-services")
+    id("com.google.android.libraries.mapsplatform.secrets-gradle-plugin")
+}
+secrets {
+    // Optionally specify a different file name containing your secrets.
+    // The plugin defaults to "local.properties"
+    propertiesFileName = "secrets.properties"
+
+    // A properties file containing default secret values. This file can be
+    // checked in version control.
+    defaultPropertiesFileName = "local.defaults.properties"
+
+    // Configure which keys should be ignored by the plugin by providing regular expressions.
+    // "sdk.dir" is ignored by default.
+    ignoreList.add("keyToIgnore") // Ignore the key "keyToIgnore"
+    ignoreList.add("sdk.*")       // Ignore all keys matching the regexp "sdk.*"
 }
 
 android {
@@ -28,6 +43,11 @@ android {
         }
 
     }
+   // allprojects {
+   //     repositories {
+   //         maven { url = uri("https://www.jitpack.io" ) }
+   //     }
+   // }
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
@@ -42,6 +62,7 @@ android {
     }
     buildFeatures {
         viewBinding = true
+        buildConfig = true
     }
 
 }
@@ -60,6 +81,15 @@ dependencies {
     implementation("com.google.firebase:firebase-storage:20.3.0")
     implementation("com.google.firebase:firebase-database:20.3.0")
     implementation("com.google.firebase:firebase-messaging:23.4.0")
+    implementation("com.firebase:geofire-android-common:3.2.0")
+    implementation("com.firebaseui:firebase-ui-firestore:8.0.1")
+
+    // Maps SDK for Android
+    implementation("com.google.android.gms:play-services-maps:18.2.0")
+
+    implementation("com.google.android.gms:play-services-location:21.1.0")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
 
     // test impl
     testImplementation("junit:junit:4.13.2")
@@ -87,6 +117,15 @@ dependencies {
 
     //Coroutines
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
+
+    // bottom sheet
+    implementation("com.github.HeyAlex:BottomDrawer:v1.0.0")
+
+    // progress bar animation
+    implementation ("com.github.certified84:CustomProgressIndicator:1.0.1")
+
+    // phone number edit text design
+    implementation ("com.fredporciuncula:phonemoji:1.5.2")
 
 
 }
