@@ -7,18 +7,9 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.ensb.vendviteexpress.R
 
-/**
- * A simple [Fragment] subclass.
- * Use the [AboutFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
+
 class AboutFragment : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

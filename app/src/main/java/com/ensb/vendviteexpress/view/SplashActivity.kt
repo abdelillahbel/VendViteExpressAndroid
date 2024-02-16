@@ -15,6 +15,7 @@ import com.ensb.vendviteexpress.view.ui.seller.SellerActivity
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth
+import kotlin.system.exitProcess
 
 @SuppressLint("CustomSplashScreen")
 class SplashActivity : AppCompatActivity() {
@@ -37,6 +38,9 @@ class SplashActivity : AppCompatActivity() {
             if (userType != null) {
                 navigateToAppropriateActivity(userType)
             } else {
+                Firebase.auth.signOut()
+                startAuthActivity()
+                finish()
                 // Handle missing type in SharedPreferences (e.g., new app instance)
                 Log.e(TAG, "missing type in SharedPreferences")
             }

@@ -2,6 +2,7 @@ package com.ensb.vendviteexpress.view.ui.distributor
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,6 +18,7 @@ class DistributorActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_distributor)
+
         val bottomNavigation = findViewById<BottomNavigationView>(R.id.distributorBottomNavigationView)
         val navigationHost =
             supportFragmentManager.findFragmentById(R.id.distributor_nav_host_fragment) as NavHostFragment

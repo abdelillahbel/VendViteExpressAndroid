@@ -1,4 +1,4 @@
-package com.ensb.vendviteexpress.view.ui.distributor.home
+package com.ensb.vendviteexpress.view.ui.seller.home
 
 import android.Manifest
 import android.content.Context
@@ -6,17 +6,18 @@ import android.location.Address
 import android.location.Geocoder
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.map
 import androidx.navigation.fragment.findNavController
 import com.ensb.vendviteexpress.R
-import com.ensb.vendviteexpress.databinding.FragmentHomeDistributorBinding
+import com.ensb.vendviteexpress.databinding.FragmentHomeBinding
 import com.ensb.vendviteexpress.utils.Utils
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -35,78 +36,88 @@ import kotlinx.coroutines.tasks.await
 import java.io.IOException
 import java.util.Locale
 
-class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
 
-    private lateinit var distributorHomeViewModel: DistributorHomeViewModel
-    private lateinit var binding: FragmentHomeDistributorBinding
+class HomeFragment : Fragment(), OnMapReadyCallback {
+
+    private lateinit var sellerHomeViewModel: SellerHomeViewModel
+    private lateinit var binding: FragmentHomeBinding
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
 
-        binding = FragmentHomeDistributorBinding.inflate(inflater, container, false)
-        // homeViewModel = ViewModelProvider(this)[SellerHomeViewModel::class.java]
-        distributorHomeViewModel = ViewModelProvider(
-            this,
-            DistributorHomeViewModelFactory(requireContext())
-        )[DistributorHomeViewModel::class.java]
 
-        binding.distributorHomeViewModel = distributorHomeViewModel
+        binding = FragmentHomeBinding.inflate(inflater, container, false)
+        // sellerHomeViewModel = ViewModelProvider(this)[SellerHomeViewModel::class.java]
+        sellerHomeViewModel = ViewModelProvider(
+            this,
+            SellerHomeViewModelFactory(requireContext())
+        )[SellerHomeViewModel::class.java]
+
+        binding.homeViewModel = sellerHomeViewModel
         binding.lifecycleOwner = this
+
+        if (Utils.checkLocationPermission(requireContext())) {
+            sellerHomeViewModel.getAndUpdateUserLocatoinInFirestore(requireContext(), this)
+        } else {
+            Utils.requestLocationPermission(this)
+        }
+
+        val updateLocationBtn = binding.updateLocationBtn
 
         val userId = Firebase.auth.currentUser?.uid
         fetchLocationFromFirebase(userId.toString())
 
-        val updateLocationBtn = binding.updateLocationBtn
+        sellerHomeViewModel.navigateToDistributorDetails.observe(viewLifecycleOwner) { distributorId ->
+            distributorId?.let {
+                val args = Bundle()
+                args.putString("distributorId", distributorId)
+                findNavController().navigate(
+                    R.id.action_homeFragment_to_itemListDialogFragment,
+                    args
+                )
+                sellerHomeViewModel.onDistributorNavigated() // Reset the LiveData
+            }
+        }
+
+        binding.postNeedFab.setOnClickListener {
+            findNavController().navigate(
+                R.id.action_homeFragment_to_postNeedsDialogFragment
+            )
+        }
 
         val mapFragment =
-            childFragmentManager.findFragmentById(binding.distributorMapFragment.id) as SupportMapFragment
+            childFragmentManager.findFragmentById(binding.mapFragment.id) as SupportMapFragment
         mapFragment.getMapAsync(this)
-
         // Observe changes on map ready - similar concept as before
-        distributorHomeViewModel.mapReady.observe(viewLifecycleOwner) { googleMap ->
+        sellerHomeViewModel.mapReady.observe(viewLifecycleOwner) { googleMap ->
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 14f))
         }
         updateLocationBtn.setOnClickListener {
             if (Utils.checkLocationPermission(requireContext())) {
-                distributorHomeViewModel.getAndUpdateUserLocatoinInFirestore(requireContext())
+                sellerHomeViewModel.getAndUpdateUserLocatoinInFirestore(requireContext(), this)
                 fetchLocationFromFirebase(userId.toString())
-                distributorHomeViewModel.fetchDistributorLocation(requireContext())
-                distributorHomeViewModel.fetchNearbySellers(requireContext())
+                sellerHomeViewModel.fetchSellerLocation(requireContext())
+                sellerHomeViewModel.fetchDistributors(requireContext())
             } else {
                 Utils.requestLocationPermission(this)
             }
         }
 
-
-        distributorHomeViewModel.navigateToSellerDetails.observe(viewLifecycleOwner) { sellerId ->
-            sellerId?.let {
-                val args = Bundle()
-                args.putString("sellerId", sellerId)
-                findNavController().navigate(
-                    R.id.action_homeDistributorFragment_to_sellerInfoDialogFragment,
-                    args
-                )
-                distributorHomeViewModel.onSellerNavigated() // Reset the LiveData
-            }
-        }
-
-
-        distributorHomeViewModel.setupSellersListener()
-
         val requestPermissionLauncher = registerForActivityResult(
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                distributorHomeViewModel.fetchDistributorLocation(requireContext())
+                sellerHomeViewModel.fetchSellerLocation(requireContext())
             } else {
                 // Handle permission denial case
             }
         }
 
         if (Utils.checkLocationPermission(requireContext())) {
-            distributorHomeViewModel.fetchDistributorLocation(requireContext())
+            sellerHomeViewModel.fetchSellerLocation(requireContext())
         } else {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
@@ -116,8 +127,9 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        distributorHomeViewModel.initializeMap(googleMap, requireContext())  // Added requireContext()
+        sellerHomeViewModel.initializeMap(googleMap, requireContext())  // Added requireContext()
     }
+
     @OptIn(DelicateCoroutinesApi::class)
     private fun fetchLocationFromFirebase(userId: String) {
         GlobalScope.launch(Dispatchers.IO) { // Coroutine for offloading network task
@@ -145,6 +157,7 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
             }
         }
     }
+
     @Suppress("DEPRECATION")
     private fun getReadableAddressFromGeoPoint(
         context: Context,
@@ -163,12 +176,11 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-
 }
 
-class DistributorHomeViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+class SellerHomeViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        return DistributorHomeViewModel(context) as T
+        return SellerHomeViewModel(context) as T
     }
 }
