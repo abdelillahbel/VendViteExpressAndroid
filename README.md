@@ -51,7 +51,7 @@ Built with Kotlin and leveraging the power of Google Technologies Include Fireba
 * A Google Maps API key (Enable the API from google cloud console)
 
 **Installation**
-
+###### (The `google-services.json` file is included in the project so you just need to obtain your google api key and it's done)
 1. Clone this repository: `git clone https://github.com/gdsc-ensb/VendViteExpressAndroid.git`
 2. Open the project in Android Studio.
 3. Obtain your Google Maps API key and add it to your project's configuration inside `secrets.properties` file, don't forget to setup `local.defaults.properties` file following instructions from official doc's.
