@@ -1,5 +1,6 @@
 package com.ensb.vendviteexpress.view.ui.auth
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -37,7 +38,7 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 val result = auth.createUserWithEmailAndPassword(email, password).await()
-                val user = User(name, email,phoneNumber, type, location, result.user?.uid)
+                val user = User(name, email, phoneNumber, type, location, result.user?.uid)
                 storeUserData(user)
                 _authState.value = Response.Success(true) // Signup successful
             } catch (e: Exception) {
@@ -51,7 +52,7 @@ class AuthViewModel : ViewModel() {
         viewModelScope.launch {
             try {
                 auth.signInWithEmailAndPassword(email, password).await()
-                _authState.value = Response.Success(true) // Login successful
+                _authState.value = Response.Success(true)
             } catch (e: Exception) {
                 _authState.value = Response.Failure(e)
             }
@@ -65,7 +66,8 @@ class AuthViewModel : ViewModel() {
                 try {
                     usersCollection.document(uid).set(user).await()
                 } catch (e: Exception) {
-                    // Handle Firestore errors appropriately
+                    // todo
+                    Log.e("storeUserData: ", e.message.toString())
                 }
             }
         }
@@ -79,12 +81,12 @@ class AuthViewModel : ViewModel() {
             if (userId != null) {
                 val userDocRef = db.collection("users").document(userId)
                 val snapshot = userDocRef.get().await()
-                snapshot.getString("name") // Assuming you have a 'name' field
+                snapshot.getString("name")
             } else {
                 null
             }
         } catch (e: Exception) {
-            // Handle Firestore errors
+            // todo
             null
         }
     }

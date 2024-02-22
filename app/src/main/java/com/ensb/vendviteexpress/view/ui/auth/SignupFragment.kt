@@ -98,7 +98,6 @@ class SignupFragment : Fragment() {
 
                 is Response.Failure -> {
                     hideProgressBar()
-                    // Handle signup errors (display an error message based on result.exception)
                     Toast.makeText(context, result.e.message, Toast.LENGTH_SHORT).show()
                 }
 
@@ -106,7 +105,7 @@ class SignupFragment : Fragment() {
             }
         }
 
-        // switch to login
+        // switch to login fragment
         loginBtn.setOnClickListener {
 
             findNavController().navigate(

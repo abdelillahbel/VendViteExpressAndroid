@@ -28,10 +28,8 @@ class SplashActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-
-
         if (auth.currentUser != null) {
-            // User is signed-in, load type from Shared Preferences
+            // User is signed-in
             val sharedPreferences = getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
             val userType = sharedPreferences.getString("user_type", null)
 
@@ -41,7 +39,6 @@ class SplashActivity : AppCompatActivity() {
                 Firebase.auth.signOut()
                 startAuthActivity()
                 finish()
-                // Handle missing type in SharedPreferences (e.g., new app instance)
                 Log.e(TAG, "missing type in SharedPreferences")
             }
         } else {

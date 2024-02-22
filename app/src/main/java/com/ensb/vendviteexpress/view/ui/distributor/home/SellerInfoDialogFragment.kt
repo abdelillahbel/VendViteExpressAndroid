@@ -74,7 +74,7 @@ class SellerInfoDialogFragment : BottomSheetDialogFragment() {
         return try {
             val addresses: List<Address>? = geocoder.getFromLocationName(
                 "${geoPoint.latitude},${geoPoint.longitude}",
-                1 // Max results
+                1
             )
             addresses?.getOrNull(0)?.getAddressLine(0)
         } catch (e: IOException) {
@@ -85,7 +85,7 @@ class SellerInfoDialogFragment : BottomSheetDialogFragment() {
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun fetchSellerInfoFromFirebase(distributorId: String) {
-        GlobalScope.launch(Dispatchers.IO) { // Coroutine for offloading network task
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val snapshot =
                     Firebase.firestore.collection("users").document(distributorId).get().await()
@@ -94,7 +94,6 @@ class SellerInfoDialogFragment : BottomSheetDialogFragment() {
                 val type = snapshot.getString("type")
 
                 if (geoPoint != null) {
-                    // UI handling needs to be on the main thread
                     GlobalScope.launch(Dispatchers.Main) {
 
 
@@ -105,11 +104,9 @@ class SellerInfoDialogFragment : BottomSheetDialogFragment() {
                 } else {
                     Toast.makeText(requireContext(), "geoPoint not found!", Toast.LENGTH_SHORT)
                         .show()
-                    // Handle null case appropriately
                 }
             } catch (e: Exception) {
                 Log.e(TAG, e.message.toString())
-                // Handle Firestore exceptions
             }
         }
     }

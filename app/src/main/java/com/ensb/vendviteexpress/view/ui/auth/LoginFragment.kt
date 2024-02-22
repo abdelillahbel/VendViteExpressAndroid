@@ -86,7 +86,7 @@ class LoginFragment : Fragment() {
                 is Response.Loading -> showProgressBar()
                 is Response.Success -> {
                     hideProgressBar()
-                    lifecycleScope.launch { // Access viewModel properties or functions here
+                    lifecycleScope.launch {
                         val userName = authViewModel.getUserName()
                         if (userName != null) {
                             Toast.makeText(context, "Hello $userName", Toast.LENGTH_LONG)
@@ -100,8 +100,6 @@ class LoginFragment : Fragment() {
                 }
 
                 is Response.Failure -> {
-
-                    // Display error message based on result.e
                     Toast.makeText(context, result.e.message, Toast.LENGTH_SHORT).show()
                     Log.e(TAG, result.e.message.toString())
                     hideProgressBar()
@@ -176,16 +174,13 @@ class LoginFragment : Fragment() {
                     }
 
                     else -> {
-                        // Handle an unexpected user type or a missing "type" field
                         Toast.makeText(context, "Unknown user", Toast.LENGTH_SHORT).show()
                     }
                 }
             } else {
-                // Handle the case where no user document exists
                 Toast.makeText(context, "you are not registered", Toast.LENGTH_SHORT).show()
             }
         }.addOnFailureListener { exception ->
-            // Handle Firestore errors
             Toast.makeText(context, exception.message, Toast.LENGTH_SHORT).show()
         }
     }
@@ -195,7 +190,8 @@ class LoginFragment : Fragment() {
             requireActivity().getSharedPreferences("app_preferences", Context.MODE_PRIVATE)
         with(sharedPreferences.edit()) {
             putString("user_type", userType)
-            apply() // Or commit() for synchronous saving
+            apply()
+            // commit()
         }
     }
 

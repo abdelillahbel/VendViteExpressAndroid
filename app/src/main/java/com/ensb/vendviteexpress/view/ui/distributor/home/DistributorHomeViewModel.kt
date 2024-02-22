@@ -36,7 +36,7 @@ import kotlinx.coroutines.tasks.await
 
 class DistributorHomeViewModel(context: Context) : ViewModel() {
 
-    private val _navigateToSellerDetails = MutableLiveData<String?>() // sellerId
+    private val _navigateToSellerDetails = MutableLiveData<String?>()
     val navigateToSellerDetails: LiveData<String?> = _navigateToSellerDetails
 
     private val _mapReady = MutableLiveData<GoogleMap>()
@@ -45,10 +45,10 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
     private val userId = Firebase.auth.currentUser?.uid
 
     private val sellerMarkers =
-        hashMapOf<String, Marker>() // Stores references to seller markers for updates
+        hashMapOf<String, Marker>()
 
     private val listenerRegistrations: MutableList<ListenerRegistration> =
-        mutableListOf() // For Cleanup
+        mutableListOf()
 
 
     private var currentLocationMarker: Marker? = null
@@ -57,8 +57,8 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
     private val appContext: Context = context
     fun initializeMap(googleMap: GoogleMap, context: Context) {
         _mapReady.value = googleMap
-        fetchDistributorLocation(context) // We'll implement this
-        fetchNearbySellers(context)  //  We'll implement this also
+        fetchDistributorLocation(context)
+        fetchNearbySellers(context)
     }
 
     fun fetchDistributorLocation(context: Context) {
@@ -75,10 +75,8 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
                         updateDistributorLocationOnMap(location, name, sellerId)
                     } else {
                         Toast.makeText(context, "missing location", Toast.LENGTH_SHORT).show()
-                        //  Handle the missing location case (show alternative UI, prompt for input)
                     }
                 } catch (e: Exception) {
-                    // Handle Firestore errors
                     Toast.makeText(context, e.message, Toast.LENGTH_LONG).show()
                 }
             }
@@ -110,9 +108,8 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
                                 sellerId.toString()
                             )
                         }
-                    } // You may consider else here when location is null, as per business logic
+                    }
                 } catch (e: Exception) {
-                    // Consider more refined error handling
                     Log.e("DistributorHomeViewModel", "Error fetching distributors:", error)
                 }
             }
@@ -126,7 +123,7 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
         val sellerName = document.getString("name")
 
         if (sellerLocation != null && sellerName != null) {
-            val marker = addSellerMarker(sellerLocation, sellerName, sellerId) // Reuse
+            val marker = addSellerMarker(sellerLocation, sellerName, sellerId)
             sellerMarkers[sellerId] = marker
         }
     }
@@ -139,14 +136,14 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
         val marker = sellerMarkers[sellerId]
         if (marker != null && sellerLocation != null && sellerName != null) {
             marker.position = LatLng(sellerLocation.latitude, sellerLocation.longitude)
-            marker.title = "$sellerId | $sellerName" // Update title if relevant
+            marker.title = "$sellerId | $sellerName"
         }
     }
 
     private fun handleSellerRemoved(document: DocumentSnapshot) {
         val sellerId = document.id
-        val marker = sellerMarkers.remove(sellerId) // Remove reference
-        marker?.remove() // Remove the marker from the map itself
+        val marker = sellerMarkers.remove(sellerId)
+        marker?.remove()
     }
 
 
@@ -156,7 +153,6 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
                 val snapshot = db.collection("users")
                     .whereEqualTo("type", "seller")
                     .whereEqualTo("active", true)
-                    // Geoqueries will likely replace this general query
                     .get()
                     .await()
 
@@ -171,9 +167,8 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
                             sellerId.toString()
                         )
                     }
-                } // You may consider else here when location is null, as per business logic
+                }
             } catch (e: Exception) {
-                // Consider more refined error handling
                 Log.e("DistributorHomeViewModel", "Error fetching sellers:", e)
                 Toast.makeText(
                     context,
@@ -195,13 +190,14 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
                 viewModelScope.launch {
                     _navigateToSellerDetails.value = mSellerId
                     // fetchAndShowDialog(mSellerId)
+                    // todo UX improvement
                 }
-
+                // todo  todo UX improvement
                 _mapReady.value?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
                 // _mapReady.value?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
 
             } else {
-                //  Data wasn't structured as expected
+                // todo
             }
             true
 
@@ -234,7 +230,7 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
             if (name != null && type != null) {
                 showDialog(name, type)
             } else {
-                // Handle missing data case
+               // error
             }
         } catch (e: Exception) {
             Log.e("DistributorHomeViewModel", "Error fetching distributor", e)
@@ -259,7 +255,6 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
         val vectorDrawable = ContextCompat.getDrawable(appContext, R.drawable.ic_profile_on_map)
 
         if (currentLocationMarker == null) {
-            // Add a new marker if it doesn't exist
             currentLocationMarker = _mapReady.value?.addMarker(
                 MarkerOptions()
                     .position(latLng)
@@ -274,12 +269,8 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
         // _mapReady.value?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
     }
 
-    // Helper to get a custom marker icon
-
 
     private fun getCustomMarkerIcon(vectorDrawable: Drawable): BitmapDescriptor {
-
-        // Essential if vector isn't already sized
         val bitmap = Bitmap.createBitmap(
             vectorDrawable.intrinsicWidth,
             vectorDrawable.intrinsicHeight,
@@ -294,7 +285,7 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
     }
 
     private val fusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(context) // Assuming 'context' exists in your VM
+        LocationServices.getFusedLocationProviderClient(context)
     }
 
     @SuppressLint("MissingPermission")
@@ -303,7 +294,7 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
             fusedLocationClient.lastLocation.await()
         } catch (e: Exception) {
             Log.e("DistributorHomeViewModel", "Error fetching user location:", e)
-            null // Or a default location object based on your logic
+            null // Or a default location object todo
         }
     }
 
@@ -317,7 +308,6 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
                     .await()
             } catch (e: Exception) {
                 Log.e("SellerHomeViewModel", "Error updating location:", e)
-                // Handle the error
             }
         }
     }
@@ -330,7 +320,6 @@ class DistributorHomeViewModel(context: Context) : ViewModel() {
             } else {
                 Toast.makeText(context, "we can't retrieve your location!", Toast.LENGTH_LONG)
                     .show()
-                // Handle the case where the location couldn't be determined
             }
         }
     }

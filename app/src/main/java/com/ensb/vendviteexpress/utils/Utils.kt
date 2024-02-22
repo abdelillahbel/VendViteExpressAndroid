@@ -41,7 +41,6 @@ object Utils {
         )
     }
 
-    // This might go into the Fragment, as it handles the result
     fun isPermissionGranted(requestCode: Int, grantResults: IntArray): Boolean {
         return if (requestCode == LOCATION_PERMISSION_CODE && grantResults.isNotEmpty()) {
             grantResults[0] == PackageManager.PERMISSION_GRANTED
