@@ -42,7 +42,7 @@ Built with Kotlin and leveraging the power of Google Technologies Include Fireba
 
 ###### **Tested on API VERSION 33**
 
-### _~~The app still under development..~~_
+### _The app still under development.._
 
 * **Streamlined Sales Point Management:** Easily manage sales points, including adding, updating,
   and viewing locations for improved logistics.

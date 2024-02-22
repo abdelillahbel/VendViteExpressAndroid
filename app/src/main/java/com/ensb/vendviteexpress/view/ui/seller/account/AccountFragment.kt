@@ -52,14 +52,13 @@ class AccountFragment : Fragment() {
 
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun fetchUserData(userId: String) {
-        GlobalScope.launch(Dispatchers.IO) { // Coroutine for offloading network task
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val snapshot =
                     Firebase.firestore.collection("users").document(userId).get().await()
@@ -68,7 +67,6 @@ class AccountFragment : Fragment() {
                 val phoneNumber = snapshot.getString("phoneNumber")
 
                 if (name != null) {
-                    // UI handling needs to be on the main thread
                     GlobalScope.launch(Dispatchers.Main) {
                         binding.textViewName.text = name
                         binding.textViewEmail.text = email
@@ -78,11 +76,9 @@ class AccountFragment : Fragment() {
                 } else {
                     Toast.makeText(requireContext(), "User data was not found!", Toast.LENGTH_SHORT)
                         .show()
-                    // Handle null case appropriately
                 }
             } catch (e: Exception) {
                 Log.e("fetchUserData: ", e.message.toString())
-                // Handle Firestore exceptions
             }
         }
     }

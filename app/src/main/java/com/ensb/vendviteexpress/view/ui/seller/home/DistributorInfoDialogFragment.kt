@@ -28,8 +28,6 @@ class DistributorInfoDialogFragment : BottomSheetDialogFragment() {
 
     private var _binding: FragmentDistributorInfoDialogListDialogBinding? = null
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -87,7 +85,8 @@ class DistributorInfoDialogFragment : BottomSheetDialogFragment() {
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun fetchDistributorInfoFromFirebase(distributorId: String) {
-        GlobalScope.launch(Dispatchers.IO) { // Coroutine for offloading network task
+        // Coroutine for offloading network task
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val snapshot =
                     Firebase.firestore.collection("users").document(distributorId).get().await()
@@ -96,7 +95,6 @@ class DistributorInfoDialogFragment : BottomSheetDialogFragment() {
                 val type = snapshot.getString("type")
 
                 if (geoPoint != null) {
-                    // UI handling needs to be on the main thread
                     GlobalScope.launch(Dispatchers.Main) {
 
                         binding.textView2.text = name
@@ -106,11 +104,9 @@ class DistributorInfoDialogFragment : BottomSheetDialogFragment() {
                 } else {
                     Toast.makeText(requireContext(), "geoPoint not found!", Toast.LENGTH_SHORT)
                         .show()
-                    // Handle null case appropriately
                 }
             } catch (e: Exception) {
                 Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
-                // Handle Firestore exceptions
             }
         }
     }

@@ -91,7 +91,6 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
         val mapFragment =
             childFragmentManager.findFragmentById(binding.mapFragment.id) as SupportMapFragment
         mapFragment.getMapAsync(this)
-        // Observe changes on map ready - similar concept as before
         sellerHomeViewModel.mapReady.observe(viewLifecycleOwner) { googleMap ->
             googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(0.0, 0.0), 14f))
         }
@@ -112,7 +111,7 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             if (isGranted) {
                 sellerHomeViewModel.fetchSellerLocation(requireContext())
             } else {
-                // Handle permission denial case
+                // todo request permission
             }
         }
 
@@ -122,17 +121,16 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        sellerHomeViewModel.initializeMap(googleMap, requireContext())  // Added requireContext()
+        sellerHomeViewModel.initializeMap(googleMap, requireContext())
     }
 
     @OptIn(DelicateCoroutinesApi::class)
     private fun fetchLocationFromFirebase(userId: String) {
-        GlobalScope.launch(Dispatchers.IO) { // Coroutine for offloading network task
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val snapshot =
                     Firebase.firestore.collection("users").document(userId).get().await()
@@ -148,12 +146,9 @@ class HomeFragment : Fragment(), OnMapReadyCallback {
                 } else {
                     Toast.makeText(requireContext(), "geoPoint not found!", Toast.LENGTH_SHORT)
                         .show()
-                    // Handle null case appropriately
                 }
             } catch (e: Exception) {
-                //  Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
                 Log.e("SellerHomeFragment", e.message.toString())
-                // Handle Firestore exceptions
             }
         }
     }

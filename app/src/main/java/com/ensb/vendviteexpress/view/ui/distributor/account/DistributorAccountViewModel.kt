@@ -9,7 +9,6 @@ import com.google.firebase.auth.auth
 
 class DistributorAccountViewModel : ViewModel() {
 
-
     fun logout() {
         Firebase.auth.signOut()
     }

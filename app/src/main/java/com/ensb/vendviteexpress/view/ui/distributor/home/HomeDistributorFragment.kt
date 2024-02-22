@@ -88,7 +88,7 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
                     R.id.action_homeDistributorFragment_to_sellerInfoDialogFragment,
                     args
                 )
-                distributorHomeViewModel.onSellerNavigated() // Reset the LiveData
+                distributorHomeViewModel.onSellerNavigated()
             }
         }
 
@@ -101,7 +101,8 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
             if (isGranted) {
                 distributorHomeViewModel.fetchDistributorLocation(requireContext())
             } else {
-                // Handle permission denial case
+                // todo permission denial case
+                // ask for permission
             }
         }
 
@@ -111,16 +112,15 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
             requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
         }
 
-        // Inflate the layout for this fragment
         return binding.root
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
-        distributorHomeViewModel.initializeMap(googleMap, requireContext())  // Added requireContext()
+        distributorHomeViewModel.initializeMap(googleMap, requireContext())
     }
     @OptIn(DelicateCoroutinesApi::class)
     private fun fetchLocationFromFirebase(userId: String) {
-        GlobalScope.launch(Dispatchers.IO) { // Coroutine for offloading network task
+        GlobalScope.launch(Dispatchers.IO) {
             try {
                 val snapshot =
                     Firebase.firestore.collection("users").document(userId).get().await()
@@ -128,7 +128,6 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
                 val name = snapshot.getString("name")
 
                 if (geoPoint != null) {
-                    // UI handling needs to be on the main thread
                     GlobalScope.launch(Dispatchers.Main) {
                         binding.locationTextView.text =
                             getReadableAddressFromGeoPoint(requireContext(), geoPoint)
@@ -136,12 +135,10 @@ class HomeDistributorFragment : Fragment(), OnMapReadyCallback {
                 } else {
                     Toast.makeText(requireContext(), "geoPoint not found!", Toast.LENGTH_SHORT)
                         .show()
-                    // Handle null case appropriately
                 }
             } catch (e: Exception) {
                 //  Toast.makeText(requireContext(), e.message, Toast.LENGTH_SHORT).show()
                 Log.e("SellerHomeFragment", e.message.toString())
-                // Handle Firestore exceptions
             }
         }
     }

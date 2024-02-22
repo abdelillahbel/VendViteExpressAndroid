@@ -2,7 +2,6 @@ package com.ensb.vendviteexpress.view.ui.seller.home
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.app.AlertDialog
 import android.content.Context
 import android.content.pm.PackageManager
@@ -11,10 +10,8 @@ import android.graphics.Canvas
 import android.graphics.drawable.Drawable
 import android.location.Location
 import android.util.Log
-import android.widget.TextView
 import android.widget.Toast
 import androidx.core.app.ActivityCompat
-
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LiveData
@@ -22,9 +19,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ensb.vendviteexpress.R
-import com.ensb.vendviteexpress.utils.USERS
 import com.ensb.vendviteexpress.utils.Utils
-import com.ensb.vendviteexpress.view.ui.seller.SellerActivity
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -74,10 +69,9 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                     if (location != null) {
                         updateSellerLocationOnMap(location, name, sellerId)
                     } else {
-                        //  Handle the missing location case (show alternative UI, prompt for input)
+                        //  todo missing location case
                     }
                 } catch (e: Exception) {
-                    // Handle Firestore errors
                     Toast.makeText(context, e.message, Toast.LENGTH_SHORT).show()
                 }
             }
@@ -91,7 +85,6 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                 val snapshot = db.collection("users")
                     .whereEqualTo("type", "distributor")
                     .whereEqualTo("active", true)
-                    // Geoqueries will likely replace this general query
                     .get()
                     .await()
 
@@ -106,9 +99,8 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                             distributorId.toString()
                         )
                     }
-                } // You may consider else here when location is null, as per business logic
+                }
             } catch (e: Exception) {
-                // Consider more refined error handling
                 Log.e("SellerHomeViewModel", "Error fetching distributors:", e)
                 Toast.makeText(
                     context,
@@ -146,29 +138,29 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                 }
                 _mapReady.value?.animateCamera(CameraUpdateFactory.newLatLng(latLng))
             } else {
-                //  Data wasn't structured as expected
+                // todo
             }
             true
 
         }
     }
 
-    private suspend fun fetchAndShowDialog(distributorId: String) {
-        try {
-            val docRef = db.collection("users").document(distributorId)
-            val snapshot = docRef.get().await()
-            val name = snapshot.getString("name")
-            val type = snapshot.getString("type")
+    /* private suspend fun fetchAndShowDialog(distributorId: String) {
+         try {
+             val docRef = db.collection("users").document(distributorId)
+             val snapshot = docRef.get().await()
+             val name = snapshot.getString("name")
+             val type = snapshot.getString("type")
 
-            if (name != null && type != null) {
-                showDialog(name, type)
-            } else {
-                // Handle missing data case
-            }
-        } catch (e: Exception) {
-            Log.e("SellerHomeViewModel", "Error fetching distributor", e)
-        }
-    }
+             if (name != null && type != null) {
+                 showDialog(name, type)
+             } else {
+                 // todo
+             }
+         } catch (e: Exception) {
+             Log.e("SellerHomeViewModel", "Error fetching distributor", e)
+         }
+     }
 
     private fun showDialog(name: String, type: String) {
         AlertDialog.Builder(appContext)
@@ -176,13 +168,12 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
             .setMessage("Name: $name\nType: $type")
             .setPositiveButton("Ok") { dialog, _ -> dialog.dismiss() }
             .show()
-    }
+    } */
 
     private fun updateSellerLocationOnMap(location: GeoPoint, name: String?, sellerId: String?) {
         val latLng = LatLng(location.latitude, location.longitude)
         val vectorDrawable = ContextCompat.getDrawable(appContext, R.drawable.ic_profile_on_map)
         if (currentLocationMarker == null) {
-            // Add a new marker if it doesn't exist
             currentLocationMarker = _mapReady.value?.addMarker(
                 MarkerOptions()
                     .position(latLng)
@@ -190,14 +181,11 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                     .icon(getCustomMarkerIcon(vectorDrawable!!)) // Using a helper function
             )
         } else {
-            // Marker exists; update its position
             currentLocationMarker?.position = latLng
         }
 
         _mapReady.value?.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14f))
     }
-
-    // Helper to get a custom marker icon
 
 
     private fun getCustomMarkerIcon(vectorDrawable: Drawable): BitmapDescriptor {
@@ -217,7 +205,7 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
     }
 
     private val fusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(context) // Assuming 'context' exists in your VM
+        LocationServices.getFusedLocationProviderClient(context)
     }
 
     @SuppressLint("MissingPermission")
@@ -226,7 +214,7 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
             fusedLocationClient.lastLocation.await()
         } catch (e: Exception) {
             Log.e("SellerHomeViewModel", "Error fetching user location:", e)
-            null // Or a default location object based on your logic
+            null // default location object todo
         }
     }
 
@@ -245,7 +233,6 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                 ).show()
             } catch (e: Exception) {
                 Log.e("SellerHomeViewModel", "Error updating location:", e)
-                // Handle the error
             }
         }
     }
@@ -285,12 +272,9 @@ class SellerHomeViewModel(context: Context) : ViewModel() {
                             Toast.LENGTH_LONG
                         )
                             .show()
-                        // Handle the case where the location couldn't be determined
                     }
 
                 }
-
-
         }
     }
 
