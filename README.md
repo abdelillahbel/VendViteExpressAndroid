@@ -2,8 +2,32 @@
 
 # VendVite Express Mobile App
 
-**VendVite Express App is an Android application designed to revolutionize the distribution process between sales points and distributors. 
-Built with Kotlin and leveraging the power of Google Technologies Include Firebase, Google Maps API, and modern Android development best practices, this app makes the distribution experience faster, smoother, and more efficient.**
+<table>
+  <tr>
+    <td><img src="app/src/main/ic_launcher-playstore.png" alt="Logo"></td>
+    <td>VendVite Express App is an Android application designed to revolutionize the distribution process between sales points and distributors. 
+Built with Kotlin and leveraging the power of Google Technologies Include Firebase, Google Maps API, and modern Android development best practices, this app makes the distribution experience faster, smoother, and more efficient.</td>
+  </tr>
+</table>
+
+## Screenshots
+
+<table>
+  <tr>
+    <td align="center">
+      <img src="screenshots/screenshot1.png" width="200" alt="Screenshot 1">
+    </td>
+    <td align="center">
+      <img src="screenshots/screenshot2.png" width="200" alt="Screenshot 2">
+    </td>
+    <td align="center">
+      <img src="screenshots/screenshot3.png" width="200" alt="Screenshot 3">
+    </td>
+    <td align="center">
+      <img src="screenshots/screenshot4.png" width="200" alt="Screenshot 4">
+    </td>
+  </tr>
+</table>
 
 ### Test user credentials
 
