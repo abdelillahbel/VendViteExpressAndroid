@@ -47,12 +47,12 @@ Built with Kotlin and leveraging the power of Google Technologies Include Fireba
 **Prerequisites**
 
 * Android Studio (latest recommended)
-* A Firebase Project with Firestore and Authentication enabled
+* A Firebase Project with Firestore and Authentication enabled (Email & Password)
 * A Google Maps API key (Enable the API from google cloud console)
 
 **Installation**
-##### Note : The `google-services.json` file is included in the project so you just need to obtain your google api key and it's done.
-##### Or follow the instructions bellow if you want to use your own firebase api, but don't forget to setup rules in firestore!
+##### Note : The `google-services.json` file is included in the project so you just need to obtain your google api key and it's done (step 3).
+##### Or follow the instructions bellow if you want to use your own firebase api, but don't forget to setup Authentication methods and firestore!
 
 1. Clone this repository: `git clone https://github.com/gdsc-ensb/VendViteExpressAndroid.git`
 2. Open the project in Android Studio.
@@ -66,7 +66,7 @@ Built with Kotlin and leveraging the power of Google Technologies Include Fireba
     * `utils`: Helper classes and extension functions.
 * `app/build.gradle`: Project dependencies and configurations.
 
-## This project is a part of Google Developer Student Clubs Solution Challenge !
+#### This project is a part of Google Developer Student Clubs Solution Challenge !
 
 ### About US :
 * ##### [GDSC ENSB](https://github.com/gdsc-ensb) - National school of biotechnology - Algeria
