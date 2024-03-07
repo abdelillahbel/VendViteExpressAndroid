@@ -123,7 +123,7 @@
                     android:text="@string/forgot_password"
                     android:textAlignment="center"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                    android:textColor="@color/red_a30" />
+                    android:textColor="@color/orange_a30" />
 
                 <TextView
                     android:id="@+id/txtSignUp"
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/margin_large"
                     android:layout_marginTop="@dimen/dp_24"
-                    android:background="@drawable/bg_red_a30_rounded_16dp"
+                    android:background="@drawable/bg_orange_a30_rounded_16dp"
                     android:fontFamily="@font/poppins_medium"
                     android:text="@string/login"
                     android:textAllCaps="false" />

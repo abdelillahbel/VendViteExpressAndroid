@@ -62,7 +62,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/dp_32"
         android:layout_marginTop="48dp"
-        android:background="@drawable/bg_red_a30_rounded_16dp"
+        android:background="@drawable/bg_orange_a30_rounded_16dp"
         android:fontFamily="@font/poppins_medium"
         android:text="Call +(213)668666666"
         android:textAllCaps="false"
