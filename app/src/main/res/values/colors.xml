@@ -40,4 +40,23 @@
     <color name="light_blue_A200">#FF40C4FF</color>
     <color name="light_blue_A400">#FF00B0FF</color>
     <color name="black_overlay">#66000000</color>
+
+
+    <color name="orange_a30">#E67A00</color>
+    <color name="orange_bc0">#FF9300</color>
+    <color name="orange_d50">#FFA91A</color>
+    <color name="orange_ee0">#FFB933</color>
+    <color name="orange_ff0">#FFC54C</color>
+    <color name="orange_ff2">#FFD166</color>
+    <color name="orange_ff3">#FFDD7F</color>
+    <color name="orange_ff5">#FFE699</color>
+    <color name="orange_ff6">#FFEDB3</color>
+    <color name="orange_ff8">#FFF2CC</color>
+    <color name="orange_ff9">#FFF6E6</color>
+    <color name="orange_ffb">#FFF9F0</color>
+    <color name="orange_ffc">#FFFDF5</color>
+    <color name="orange_ffe">#FFFFFF</color>
+    <color name="orange_fae">#FFFFFF</color>
+    <color name="orange_fff">#FFFFFF</color>
+    <color name="orange_f8e">#FFFFFF</color>
 </resources>

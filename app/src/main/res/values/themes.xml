@@ -2,11 +2,11 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.VendViteExpress" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <item name="colorPrimary">@color/red_a30</item>
+        <item name="colorPrimary">@color/orange_a30</item>
         <item name="colorPrimaryVariant">@color/gray_7f7</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/red_a30</item>
+        <item name="colorSecondary">@color/orange_a30</item>
         <item name="colorSecondaryVariant">@color/gray_a5a</item>
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
@@ -29,11 +29,11 @@
     <style name="SplashScreenTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
         <item name="android:windowAnimationStyle">@null</item>
         <item name="android:windowBackground">@drawable/splash_image</item>
-        <item name="android:statusBarColor">@color/red_a30</item>
+        <item name="android:statusBarColor">@color/orange_a30</item>
     </style>
 
     <style name="ToolbarTheme" parent="@style/ThemeOverlay.AppCompat.ActionBar">
-        <item name="colorControlNormal">@color/red_a30</item>
+        <item name="colorControlNormal">@color/orange_a30</item>
     </style>
 
     <style name="CustomTextAppearance" parent="TextAppearance.Design.Tab">
@@ -58,7 +58,7 @@
     </style>
 
     <style name="RadioButtonStyle" parent="Theme.MaterialComponents.Light">
-        <item name="colorAccent">@color/red_a30</item>
+        <item name="colorAccent">@color/orange_a30</item>
         <item name="android:textColorSecondary">@color/gray_a5a</item>
     </style>
 

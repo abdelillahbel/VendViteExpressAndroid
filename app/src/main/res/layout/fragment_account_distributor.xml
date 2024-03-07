@@ -177,7 +177,7 @@
                     android:layout_marginStart="@dimen/dp_8"
                     android:fontFamily="@font/poppins_medium"
                     android:text="@string/unverified"
-                    android:textColor="@color/red_a30"
+                    android:textColor="@color/orange_a30"
                     android:textSize="12sp"
                     app:layout_constraintBottom_toBottomOf="@+id/textViewPhoneNumber"
                     app:layout_constraintStart_toEndOf="@+id/textViewPhoneNumber"

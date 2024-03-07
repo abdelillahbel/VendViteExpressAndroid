@@ -58,7 +58,7 @@
     <string name="otp">OTP</string>
     <string name="login">Login</string>
     <string name="forgot_password">Forgot password?</string>
-    <string name="don_t_have_an_account_signup">Don\'t have an account? <font fgcolor="#A30000"><u>Sign Up</u></font></string>
+    <string name="don_t_have_an_account_signup">Don\'t have an account? <font fgcolor="#FF8C00"><u>Sign Up</u></font></string>
     <string name="reset_password">Reset Password</string>
     <string name="reset_email">Send reset email</string>
     <string name="cash_on_delivery">Cash On Delivery</string>

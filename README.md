@@ -2,6 +2,8 @@
 
 # VendVite Express Mobile App
 
+##### we are updating our UI 💫
+
 <table>
   <tr>
     <td><img src="app/src/main/ic_launcher-playstore.png" alt="Logo"></td>
