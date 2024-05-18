@@ -61,7 +61,7 @@
 
 **Installation**
 
-1. Clone this repository: `git clone https://github.com/gdsc-ensb/VendViteExpressAndroid.git`
+1. Clone this repository: `git clone https://github.com/devunionorg/VendViteExpressAndroid`
 2. Open the project in Android Studio.
 3. Obtain your Google Maps API key and add it to your project's configuration inside `secrets.properties` file, don't forget to setup `local.defaults.properties` file following instructions from official doc's.
 4. Set up your Firebase project and link it to the Android app.
@@ -78,4 +78,5 @@
 
 ### About US :
 * ##### [GDSC ENSB](https://github.com/gdsc-ensb) - National school of biotechnology - Algeria
-* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager & VendVite App owner & developer.
+* ##### [DevUnionHQ](https://github.com/devunionorg) - Software development company - France
+* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager at DevUnion & VendVite App owner & developer.
