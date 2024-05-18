@@ -5,7 +5,7 @@
 <table>
   <tr>
     <td><img src="app/src/main/ic_launcher-playstore.png" alt="Logo"></td>
-    <td>VendVite Express is a revolutionary mobile application designed to connect individuals facing vehicle troubles with nearby car repair stations. With a focus on convenience, efficiency, and user experience, VendVite Express provides real-time assistance to those in need, making the process of getting your vehicle repaired as seamless as possible.</td>
+    <td>VendVite Express is a cutting-edge mobile application designed to revolutionize the way you buy and sell vehicles. With a focus on convenience, efficiency, and user experience, VendVite Express connects clients with nearby car and vehicle buyers in real-time, making the process of selling or buying a vehicle as seamless as possible.</td>
   </tr>
 </table>
 
@@ -34,11 +34,11 @@
 
 ### _The app still under development.._
 
-* **Real-time Repair Station Matching:** VendVite Express uses advanced location-based services to connect you with nearby repair stations. No more endless searching - find help at the touch of a button.
-* **Secure Transactions:** Safety is our top priority. VendVite Express ensures secure transactions with verified repair stations, providing you with peace of mind.
-* **User-friendly Interface:** With its intuitive design and easy-to-navigate interface, VendVite Express makes finding help a breeze.
-* **Efficient Communication Process:** Communicate directly with repair stations through the app. Discuss issues, arrange services, and finalize transactions in a few simple steps.
-* **Detailed Service Listings:** Repair stations can create comprehensive service listings with detailed descriptions and high-quality images. Make your services stand out and attract the right customers.
+* **Real-time Buyer Matching:** VendVite Express uses advanced location-based services to connect you with potential buyers in your vicinity. No more endless searching - find interested buyers at the touch of a button.
+* **Secure Transactions:** Safety is our top priority. VendVite Express ensures secure transactions with verified buyers, providing you with peace of mind.
+* **User-friendly Interface:** With its intuitive design and easy-to-navigate interface, VendVite Express makes buying and selling vehicles a breeze.
+* **Efficient Negotiation Process:** Communicate directly with potential buyers through the app. Discuss prices, arrange viewings, and finalize transactions in a few simple steps.
+* **Detailed Vehicle Listings:** Create comprehensive vehicle listings with detailed descriptions and high-quality images. Make your vehicle stand out and attract the right buyers.
 
 ## Technologies
 
@@ -61,7 +61,7 @@
 
 **Installation**
 
-1. Clone this repository: `git clone https://github.com/devunionorg/VendViteExpressAndroid`
+1. Clone this repository: `git clone https://github.com/gdsc-ensb/VendViteExpressAndroid.git`
 2. Open the project in Android Studio.
 3. Obtain your Google Maps API key and add it to your project's configuration inside `secrets.properties` file, don't forget to setup `local.defaults.properties` file following instructions from official doc's.
 4. Set up your Firebase project and link it to the Android app.
@@ -69,14 +69,13 @@
 ## Project Structure
 
 * `app/src/main/java/com/ensb/vendviteexpress`
-  * `data`: Data models, repositories, and data sources.
-  * `view`: Views (Activities/Fragments), ViewModels, Adapters.
-  * `utils`: Helper classes and extension functions.
+    * `data`: Data models, repositories, and data sources.
+    * `view`: Views (Activities/Fragments), ViewModels, Adapters.
+    * `utils`: Helper classes and extension functions.
 * `app/build.gradle`: Project dependencies and configurations.
 
 #### This project is a part of Google Developer Student Clubs Solution Challenge !
 
 ### About US :
 * ##### [GDSC ENSB](https://github.com/gdsc-ensb) - National school of biotechnology - Algeria
-* ##### [DevUnionHQ](https://github.com/devunionorg) - Software development company - France
-* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager at DevUnion & VendVite App owner & developer.
+* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager & VendVite App owner & developer.
