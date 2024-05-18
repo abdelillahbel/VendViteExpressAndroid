@@ -50,7 +50,6 @@
         <activity
             android:name=".view.SplashActivity"
             android:exported="true"
-            android:screenOrientation="unspecified"
             android:theme="@style/SplashScreenTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

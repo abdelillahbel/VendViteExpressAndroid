@@ -1,14 +1,11 @@
-***
-
 # VendVite Express Mobile App
 
-##### we are updating our UI 💫
+##### We are updating our UI 💫
 
 <table>
   <tr>
     <td><img src="app/src/main/ic_launcher-playstore.png" alt="Logo"></td>
-    <td>VendVite Express App is an Android application designed to revolutionize the distribution process between sales points and distributors. 
-Built with Kotlin and leveraging the power of Google Technologies Include Firebase, Google Maps API, and modern Android development best practices, this app makes the distribution experience faster, smoother, and more efficient.</td>
+    <td>VendVite Express is a cutting-edge mobile application designed to revolutionize the way you buy and sell vehicles. With a focus on convenience, efficiency, and user experience, VendVite Express connects clients with nearby car and vehicle buyers in real-time, making the process of selling or buying a vehicle as seamless as possible.</td>
   </tr>
 </table>
 
@@ -31,31 +28,17 @@ Built with Kotlin and leveraging the power of Google Technologies Include Fireba
   </tr>
 </table>
 
-### Test user credentials
-
-#### Distributor
-* Email : `io@email.com`
-* Password : `123456`
-#### Seller
-* Email : `ioi@email.com`
-* Password : `123456`
-
 ## Key Features
 
 ###### **Tested on API VERSION 33**
 
 ### _The app still under development.._
 
-* **Streamlined Sales Point Management:** Easily manage sales points, including adding, updating,
-  and viewing locations for improved logistics.
-* **Smart Route Optimization:** Integrated Google Maps API ensures the most efficient delivery
-  routes, saving time and fuel costs.
-* **Real-time Orders Tracking:** Stay updated on order statuses with comprehensive in-app order
-  tracking features.
-* **Inventory Management:** Keep tabs on stock levels and manage inventory to prevent shortages and
-  unnecessary surpluses.
-* **Seamless Communication:** Facilitate direct communication between sales points and distributors
-  for greater transparency.
+* **Real-time Buyer Matching:** VendVite Express uses advanced location-based services to connect you with potential buyers in your vicinity. No more endless searching - find interested buyers at the touch of a button.
+* **Secure Transactions:** Safety is our top priority. VendVite Express ensures secure transactions with verified buyers, providing you with peace of mind.
+* **User-friendly Interface:** With its intuitive design and easy-to-navigate interface, VendVite Express makes buying and selling vehicles a breeze.
+* **Efficient Negotiation Process:** Communicate directly with potential buyers through the app. Discuss prices, arrange viewings, and finalize transactions in a few simple steps.
+* **Detailed Vehicle Listings:** Create comprehensive vehicle listings with detailed descriptions and high-quality images. Make your vehicle stand out and attract the right buyers.
 
 ## Technologies
 
@@ -77,23 +60,23 @@ Built with Kotlin and leveraging the power of Google Technologies Include Fireba
 * A Google Maps API key (Enable the API from google cloud console)
 
 **Installation**
-##### Note : The `google-services.json` file is included in the project so you just need to obtain your google api key and it's done (step 3).
-##### Or follow the instructions bellow if you want to use your own firebase api, but don't forget to setup Authentication methods and firestore!
 
-1. Clone this repository: `git clone https://github.com/gdsc-ensb/VendViteExpressAndroid.git`
+1. Clone this repository: `git clone https://github.com/devunionorg/VendViteExpressAndroid`
 2. Open the project in Android Studio.
 3. Obtain your Google Maps API key and add it to your project's configuration inside `secrets.properties` file, don't forget to setup `local.defaults.properties` file following instructions from official doc's.
 4. Set up your Firebase project and link it to the Android app.
+
 ## Project Structure
 
 * `app/src/main/java/com/ensb/vendviteexpress`
-    * `data`: Data models, repositories, and data sources.
-    * `view`: `[SELLER] [DISTRIBUTOR]` Views (Activities/Fragments), ViewModels, Adapters.
-    * `utils`: Helper classes and extension functions.
+  * `data`: Data models, repositories, and data sources.
+  * `view`: Views (Activities/Fragments), ViewModels, Adapters.
+  * `utils`: Helper classes and extension functions.
 * `app/build.gradle`: Project dependencies and configurations.
 
 #### This project is a part of Google Developer Student Clubs Solution Challenge !
 
 ### About US :
 * ##### [GDSC ENSB](https://github.com/gdsc-ensb) - National school of biotechnology - Algeria
-* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager & VendVite App owner & developer.
+* ##### [DevUnionHQ](https://github.com/devunionorg) - Software development company - France
+* ##### [ABDEL ILLAH B](https://github.com/abdelillahbel) : GDSC ENSB Core team member and IT manager at DevUnion & VendVite App owner & developer.
